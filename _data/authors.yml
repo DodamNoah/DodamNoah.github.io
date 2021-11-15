@@ -1,0 +1,16 @@
+# # /_data/authors.yml
+
+# Dodam Lee:
+#   name        : "Dodam's Daddy"
+#   bio         : "언제나 즐코딩!? 🥸"
+#   avatar      : "/assets/images/dodam_profile.png"
+#   links:
+#     - label: "Email"
+#       icon: "fas fa-fw fa-envelope-square"
+#       url: "mailto:cloone1224@gmail.com"
+#     # - label: "Website"
+#       # icon: "fas fa-fw fa-link"
+#       # url: "https://thewhip.com"
+#     # - label: "Twitter"
+#       # icon: "fab fa-fw fa-twitter-square"
+#       # url: "https://twitter.com/extravagantman"
