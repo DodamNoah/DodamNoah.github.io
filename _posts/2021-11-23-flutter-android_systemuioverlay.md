@@ -7,6 +7,8 @@ categories:
 tags:
   - Flutter
   - Dart
+toc: true
+toc_sticky: true
 ---
 앱을 개발하다보면 앱 특성에 따라서 Status bar, Bottom Navigation bar를 다양한 방식으로 처리를 하게됩니다.
 Flutter에서는 service.dart를 통한 SystemChrome.setEnabledSystemUIOverlays를 제공하여, 이를 통해서 다양한 방식으로 처리가 가능합니다.
@@ -184,6 +186,6 @@ void initState() {
 }
 ```
 
-### 위와 같이 Android Native (Java or Kotlin)코드를 작성한 뒤 초기 OnCreate, onWindowFocus에서 호출하며 이후 키보드(Input)를 사용하는 Widget에서 키보드가 내려갈 때 hideSystemUI()를 호출해줍니다.
+***위와 같이 Android Native (Java or Kotlin)코드를 작성한 뒤 초기 OnCreate, onWindowFocus에서 호출하며 이후 키보드(Input)를 사용하는 Widget에서 키보드가 내려갈 때 hideSystemUI()를 호출해줍니다.***
 
-### 참고로, 키보드 Detect를 위해서 flutter_keyboard_visibility Dependency를 사용하였습니다.
+***참고로, 키보드 Detect를 위해서 flutter_keyboard_visibility Dependency를 사용하였습니다.***

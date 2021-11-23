@@ -7,6 +7,8 @@ categories:
 tags:
   - Flutter
   - Dart
+toc: true
+toc_sticky: true
 ---
 모든 과정은 MacOS, Windows 10 환경에서 진행하도록 하겠습니다.
 1. Visual Studio Code 다운로드 & 설치
@@ -131,4 +133,4 @@ $ flutter create --org com.yourdomain.packagename -a kotlin(or java) -i swift(or
 $ cd your_app_name
 $ flutter run
 ```
-🧐 *-a, -i를 지정하지 않을 경우 Android는 Kotlin, iOS의 경우 swift로 지정됩니다.*
+🧐 ***-a, -i를 지정하지 않을 경우 Android는 Kotlin, iOS의 경우 swift로 지정됩니다.***

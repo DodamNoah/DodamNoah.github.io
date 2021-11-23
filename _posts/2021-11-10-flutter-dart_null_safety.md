@@ -7,6 +7,8 @@ categories:
 tags:
   - Flutter
   - Dart
+toc: true
+toc_sticky: true
 ---
 Flutter SDK 버전이 지속적으로 업데이트 되면서 Dart 언어 역시 계속 진화를 하고 있습니다.
 Flutter 2x 출시와 같이 Dart 언어의 Null-Safety에 대한 큰 변화도 포함되었으며, 이번 포스트에서는 Null-Safety에 대한 이슈 사항에 대해서 간단히 정리하도록 하겠습니다.
@@ -76,4 +78,4 @@ flutter run --release --no-sound-null-safety
 flutter build apk --no-sound-null-safety
 ```
 
-### 위의 방법은 기존 프로젝트에 대한 대응 및 Legacy Dependencies를 위한 방법으로 Dependecies 사용을 위해서는 불가피하게 필요할 수 있으나, 자신이 소스의 경우 가급적 Null-Safety를 고려해서 개발하는게 추후에도 더 좋지 않을까 생각듭니다.🧐
+***위의 방법은 기존 프로젝트에 대한 대응 및 Legacy Dependencies를 위한 방법으로 Dependecies 사용을 위해서는 불가피하게 필요할 수 있으나, 자신이 소스의 경우 가급적 Null-Safety를 고려해서 개발하는게 추후에도 더 좋지 않을까 생각듭니다.***🧐

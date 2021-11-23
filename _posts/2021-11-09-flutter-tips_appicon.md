@@ -34,5 +34,5 @@ flutter pub get
 flutter pub run flutter_launcher_icons:main
 ```
 ---
-### 각 플랫폼 폴더에 해상도별 아이콘이 생성됩니다. 예를 들어, 안드로이드의 경우 android/app/main/res/mipmap-xxx 폴더들에서 ic_launcher.png를 확인할 수 있습니다.
+***각 플랫폼 폴더에 해상도별 아이콘이 생성됩니다. 예를 들어, 안드로이드의 경우 android/app/main/res/mipmap-xxx 폴더들에서 ic_launcher.png를 확인할 수 있습니다.***
 

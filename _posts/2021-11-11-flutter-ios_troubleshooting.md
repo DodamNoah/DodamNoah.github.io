@@ -7,6 +7,8 @@ categories:
 tags:
   - Flutter
   - Dart
+toc: true
+toc_sticky: true
 ---
 크로스 플랫폼으로 앱을 개발하더라도 각각의 플랫폼에서 발생하는 이슈 사항들이 생기게 됩니다.
 항시 발생하는 부분이면 오히려 해결하기 쉬울 수 있지만, 다양한 개발 환경에서 접하지 못한 이슈가 발생할 경우 난관에 처할 수 있을 듯 합니다.
@@ -67,4 +69,3 @@ flutter: Failed to load video: Operation Stopped
 앱 스토어 아이콘은 투명 레이어(1024x1024)를 포함할 수 없습니다. 아카이브중에 하기와 같이 오류가 발생할 경우에는 다음 링크내의 파일을 Alpha로 다시 저장하는 방법을 사용해보세요.
 ![Archive 오류](/assets/images/ios_icon_issue.png)
 [해결 방법 링크](https://stackoverflow.com/questions/46585809/error-itms-90717-invalid-app-store-icon)
-
