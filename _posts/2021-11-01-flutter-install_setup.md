@@ -95,6 +95,7 @@ $ pod setup
 $ flutter doctor --android-licenses // Android 라이센스 동의(1회)
 ```
 * Android Studio 설치를 통해 ANDROID_SDK_ROOT 설정이 필요합니다.
+* Flutter는 Android Studio 설치없이 Android SDK, Java 설치만으로도 개발이 가능합니다.
 ```
 $ export ANDROID_SDK_ROOT=/Users/dodam/Library/Android
 $ export PATH=$PATH:$ANDROID_SDK_ROOT/sdk/platform-tools
