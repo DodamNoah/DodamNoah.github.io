@@ -1,5 +1,6 @@
 ---
 title:  "[Flutter] 앱 아이콘 생성 및 적용"
+excerpt: "일반적으로 앱을 만들면 아이콘을 해상도 사이즈별로 다양하게 만들어야 합니다.😱 이번 Post에서는 유용한 Dependency를 통해서 간단히 처리하는 방법을 공유드리겠습니다."
 date:   2021-11-10 13:00:00 +0530
 categories:
   - Flutter
@@ -7,8 +8,6 @@ tags:
   - Flutter
   - Dart
 ---
-일반적으로 앱을 만들면 아이콘을 해상도 사이즈별로 다양하게 만들어야 합니다.😱
-
 Flutter에는 단일 사이즈(권장 512x512 or 256x256) 이미지를 통해서 다양한 플랫폼의 필수 아이콘을 자동으로 생성해 주는 Dependency를 제공합니다.😍
 
 [flutter_launcher_icons(Dependency)](https://pub.dev/packages/flutter_launcher_icons)

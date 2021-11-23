@@ -1,7 +1,7 @@
 ---
 title:  "[Flutter] Android SystemUIOverlay 이슈"
-excerpt: "Android Status bar, Bottom Navigation bar의 이슈를 해결해보자."
-date:   2021-11-23 13:00:00 +0530
+excerpt: "Android Status bar, Bottom Navigation bar와 Keyboard를 같이 사용할 경우의 발생하는 이슈를 해결하는 방법입니다."
+date:   2021-11-23 09:00:00 +0530
 categories:
   - Flutter
 tags:
@@ -13,6 +13,7 @@ Flutter에서는 service.dart를 통한 SystemChrome.setEnabledSystemUIOverlays�
 
 이번 포스트는 Flutter 2.2.3 버전으로 진행됩니다.
 
+## SystemUiOverlay 사용 경우의 수
 1. Status, Bottom 미사용 - Full 화면
 2. Status, Bottom 모두 사용
 3. Status만 사용
@@ -30,8 +31,8 @@ Flutter에서는 SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top])�
 ### 해결
 Android Platform 코드를 작성한 뒤 처리합니다.
 
-* Android Native Java Code
-```
+**Android Native Code - Java**
+```java
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import android.view.View;
@@ -87,9 +88,9 @@ public class MainActivity extends FlutterActivity {
   }
 }
 ```
-* Android Native Kotlin Code
-```
 
+**Android Native Code - Kotlin**
+```java
 import android.os.Bundle
 import android.os.Handler
 import androidx.annotation.NonNull
@@ -124,13 +125,10 @@ class MainActivity: FlutterActivity(), MethodCallHandler {
         var channel = MethodChannel(binaryMessenger, CHANNEL)
         channel.setMethodCallHandler(this)
         MainActivity._channel = channel
-
-        Log.e("MainActivity", "configureFlutterEngine!!!");
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
 
-        Log.e("MainActivity", "onMethodCall!!! " + call.method);
         when (call.method) {
             HIDEUI -> this.hideSystemUI()
             else -> result.notImplemented()
@@ -156,8 +154,8 @@ class MainActivity: FlutterActivity(), MethodCallHandler {
 }
 ```
 
-* Flutter Dart Code
-```
+**Flutter Dart Code - Platform Invoke**
+```dart
 static Future hideSystemUI() async {
   try {
     var result = await _platform.invokeMethod('hideUi', <String, dynamic>{});
@@ -167,7 +165,10 @@ static Future hideSystemUI() async {
   }
 }
 ```
-```
+
+
+**Flutter Dart Code - Keyboard Detect**
+```dart
 @override
 void initState() {
   super.initState();
@@ -182,6 +183,7 @@ void initState() {
   });
 }
 ```
-위와 같이 Android Native (Java or Kotlin)코드를 작성한 뒤 초기 OnCreate, onWindowFocus에서 호출하며, 이후 키보드(Input)를 사용하는 Widget에서 키보드가 내려갈 때 hideSystemUI()를 호출해줍니다.
 
-참고로, 키보드 Detect를 위해서 flutter_keyboard_visibility Dependency를 사용하였습니다.
+### 위와 같이 Android Native (Java or Kotlin)코드를 작성한 뒤 초기 OnCreate, onWindowFocus에서 호출하며 이후 키보드(Input)를 사용하는 Widget에서 키보드가 내려갈 때 hideSystemUI()를 호출해줍니다.
+
+### 참고로, 키보드 Detect를 위해서 flutter_keyboard_visibility Dependency를 사용하였습니다.

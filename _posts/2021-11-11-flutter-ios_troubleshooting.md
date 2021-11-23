@@ -1,5 +1,6 @@
 ---
 title:  "[Flutter] iOS Troubleshooting"
+excerpt: "iOS 플랫폼에서 흔히 발생할 수 있는 상황에 대해서 알아봅니다.(빌드 오류, 화면 전환 이슈, 비디오 플레이어 이슈, 앱 아이콘)"
 date:   2021-11-11 13:00:00 +0530
 categories:
   - Flutter

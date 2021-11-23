@@ -1,5 +1,6 @@
 ---
 title:  "[Flutter] Dart에서 Null-Safety와 기존 Legacy 방식 혼합"
+excerpt: "Dart Null-Safety 지원 버전과 미지원 버전에서의 혼합 사용에 대해서 알아봅니다."
 date:   2021-11-10 13:00:00 +0530
 categories:
   - Flutter

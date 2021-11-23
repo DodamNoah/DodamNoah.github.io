@@ -1,5 +1,6 @@
 ---
 title:  "[Flutter] Flutter 설치"
+excerpt: "이제부터가 시작이다!👏  이번 포스트에서는 Flutter를 이용한 앱 개발을 위한 다음 과정을 공유하도록 하겠습니다."
 date:   2021-11-01 13:00:00 +0530
 categories:
   - Flutter
@@ -7,8 +8,6 @@ tags:
   - Flutter
   - Dart
 ---
-이제부터가 시작이다!👏  
-이번 포스트에서는 Flutter를 이용한 앱 개발을 위한 다음 과정을 공유하도록 하겠습니다.  
 모든 과정은 MacOS, Windows 10 환경에서 진행하도록 하겠습니다.
 1. Visual Studio Code 다운로드 & 설치
 2. Flutter SDK 다운로드 & 설정
