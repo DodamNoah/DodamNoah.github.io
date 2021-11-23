@@ -15,6 +15,8 @@ toc_sticky: true
 
 단, AOS의 경우는 마켓 등록을 위해서 빌드 후 Signing(Keystore)의 절차등의 추가적인 과정이 필요하며, iOS의 경우는 이전 빌드된 Xcode의 프로젝트를 Modification방식으로 처리가 필요할 때도 있습니다.
 
+![Build Settings](/assets/images/unity/unity_build_settings.png)
+
 ## 1. 빌드 스크립트 생성
 유니티 에디터상의 메뉴를 생성하므로 BuildScript.cs 파일을 Assets/Editor폴더에 생성합니다.
 생성된 파일에 아래와 같이 기본 코드를 추가합니다.
@@ -117,6 +119,7 @@ public class BuildScript : MonoBehaviour
 ```
 ## 2. 빌드 메뉴 구성
 아래와 같이 MenuItem을 활용하면 스샷처럼 유니티 메뉴가 생성되며, 단축키(#%xxx) 지정도 가능합니다.
+![Build Menu](/assets/images/unity/unity_build_menu.png)
 ```cs
 [MenuItem("RE:CUBE/Build/General #%o")]
 static void Build()
