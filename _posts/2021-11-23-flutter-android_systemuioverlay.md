@@ -1,5 +1,6 @@
 ---
 title:  "[Flutter] Android SystemUIOverlay 이슈"
+excerpt: "Android Status bar, Bottom Navigation bar의 이슈를 해결해보자."
 date:   2021-11-23 13:00:00 +0530
 categories:
   - Flutter
@@ -7,10 +8,10 @@ tags:
   - Flutter
   - Dart
 ---
-이번 포스트는 Flutter 2.2.3 버전으로 진행됩니다.
-
 앱을 개발하다보면 앱 특성에 따라서 Status bar, Bottom Navigation bar를 다양한 방식으로 처리를 하게됩니다.
 Flutter에서는 service.dart를 통한 SystemChrome.setEnabledSystemUIOverlays를 제공하여, 이를 통해서 다양한 방식으로 처리가 가능합니다.
+
+이번 포스트는 Flutter 2.2.3 버전으로 진행됩니다.
 
 1. Status, Bottom 미사용 - Full 화면
 2. Status, Bottom 모두 사용
