@@ -15,8 +15,7 @@ toc_sticky: true
 2. Flutter SDK 다운로드 & 설정
 3. 플랫폼 설정
 4. Visual Studio Code Plugin 설치(*Optional*)
-5. 개발 환경 설정
-6. 프로젝트 생성 및 빌드
+5. 프로젝트 생성 및 빌드
 
 ## 1. Visual Studio Code 다운로드 & 설치
 [Visual Studio Code 다운로드](https://code.visualstudio.com/download)  
@@ -122,9 +121,7 @@ Visual Studio Code를 통해서 Flutter를 개발시 다음의 Visual Studio Cod
 * Dart Getter And Setter
 * Yaml
 
-## 5. 개발 환경 설정
-
-## 6. 프로젝트 생성 및 빌드
+## 5. 프로젝트 생성 및 빌드
 * 터미널(도스 프롬프트)를 통한 프로젝트 생성
 _Android Studio에서도 프로젝트 생성 가능합니다._
 ```

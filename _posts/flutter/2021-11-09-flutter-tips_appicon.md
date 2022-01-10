@@ -7,12 +7,14 @@ categories:
 tags:
   - Flutter
   - Dart
+toc: true
+toc_sticky: true
 ---
 Flutter에는 단일 사이즈(권장 512x512 or 256x256) 이미지를 통해서 다양한 플랫폼의 필수 아이콘을 자동으로 생성해 주는 Dependency를 제공합니다.😍
 
 [flutter_launcher_icons(Dependency)](https://pub.dev/packages/flutter_launcher_icons)
 
-적용 순서
+# 1. 적용 방법
 프로젝트의 pubspec.yaml 파일이 있는 위치에 flutter_launcher_icons.yaml 파일 생성합니다.
 pubspec.yaml에 다음 코드 추가합니다.
 ```
@@ -21,7 +23,7 @@ dev_dependencies:
 ```
 다음 코드를 기입(**코드 기입시 첫줄은 꼭!! 유지**)
 하기 코드는 flutter_launcher_icons.yaml 파일 생성없이 pubspec.yaml에 작성해도 무관합니다.
-```
+```bash
 
   flutter_icons:
     android: true
@@ -32,6 +34,13 @@ dev_dependencies:
 ```
 flutter pub get
 flutter pub run flutter_launcher_icons:main
+```
+
+# 2. 멀티 아이콘 지정
+Flavor에 따라서 icon을 다르게 지정할 경우, flutter_launcher_icons.yaml과 동일한 방식으로 다르게 지정할 파일을 하나 생성(예. flutter_launcher_icons-prod.yaml, prod는 Flavor명!)한 후 image_path를 다른 png로 작성하여 아래와 같이 터미널에서 실행합니다.  
+```bash
+flutter pub get
+flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons*
 ```
 ---
 ***각 플랫폼 폴더에 해상도별 아이콘이 생성됩니다. 예를 들어, 안드로이드의 경우 android/app/main/res/mipmap-xxx 폴더들에서 ic_launcher.png를 확인할 수 있습니다.***

@@ -13,6 +13,8 @@ toc_sticky: true
 Flutter SDK 버전이 지속적으로 업데이트 되면서 Dart 언어 역시 계속 진화를 하고 있습니다.
 Flutter 2x 출시와 같이 Dart 언어의 Null-Safety에 대한 큰 변화도 포함되었으며, 이번 포스트에서는 Null-Safety에 대한 이슈 사항에 대해서 간단히 정리하도록 하겠습니다.
 
+이번 포스트는 Flutter 2.2.3 버전으로 진행됩니다.
+
 ## Null-Safety 참고 사이트
 1. [Dart Null-Safety의 이해](https://dart.dev/null-safety/understanding-null-safety)
 2. [Dart Sound Null-Safety 대처](https://dart.dev/null-safety)

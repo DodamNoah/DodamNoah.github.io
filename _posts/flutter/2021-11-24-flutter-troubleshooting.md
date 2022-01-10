@@ -1,5 +1,5 @@
 ---
-title:  "[Flutter] Tips & Troubleshooting"
+title:  "[Flutter] Troubleshooting"
 excerpt: "Flutter를 개발하면서 겪었던 상황들에 대한 해결법을 공유합니다.(빌드 오류, 화면 전환 이슈, 비디오 플레이어 이슈, 앱 아이콘등)"
 date:   2021-11-24 13:00:00 +0530
 categories:
@@ -22,20 +22,26 @@ $ flutter clean
 $ flutter pub get
 $ flutter build apk or flutter build ios // release
 ```
-## 2. 페이지 이동시 값 전달
-Flutter에서는 Navigator.of(context).pushNamed(...)를 통해서 페이지를 이동하며 이전 페이지로 돌아올 때 Natigator.pop(...)를 사용합니다.  
-만약 A > B > A로 페이지 이동시 B에서의 특정 값을 A에서 받아야 할 경우 아래와 같이 처리합니다.  
-```
-// A > B 호출
-var result = await Navigator.of(context).pushNamed(context, B);
-// B에서 처리
-Navigator.pop(context, parameters); // parameters에 원하는 값을 넘겨주면 var result로 받아서 처리가 가능합니다.
-```
-
 ## 2. Dependency 사용시 유의 사항
 Flutter에서는 다양한 [Dependency](https://pub.dev/)를 제공하며, Dependency에 따라서 지원하는 플랫폼도 다양합니다.  
 따라서, Dependency 사용시에는 꼭 Readme를 숙지하여 플랫폼별 추가 설정이 없는지 확인을 하셔야 합니다.
 
+## 3. initState에서의 Provider notifyListeners() 호출
+initState에서 Provider의 값을 변경 후 notifyListeners()를 호출할 경우 아직 build가 끝나지 않은 상태이므로 아래와 같은 에러가 발생합니다.  
+해결 방법은 다양하지만 여기서는 addPostFrameCallback()를 통해서 관련 코드를 묶어주면 build후 처리가 진행되어 에러가 발생하지 않습니다.  
+참고로, setState(...) 호출시 Lifecycle 관련 이슈들은 일부 addPostFrameCallback()을 통해서 해결이 가능합니다.  
+![setState Lifecycle 오류](/assets/images/addPostFrameCallback.png)
+```dart
+@override
+void initState() {
+  super.initState();
+  WidgetsBinding.instance?.addPostFrameCallback((_) {
+    //... 여기에 관련 코드 추가
+    notifyListeners();
+    //...
+  }
+}
+```
 # 2. Android
 ## 1. Notch(SafeArea) 디바이스에서의 Status bar 처리
 SystemChrome.setEnabledSystemUIOverlays([])로 지정을 하여도 Notch영역이 검은색(사용 불가)으로 나오는 경우에 아래와 같이 처리를 해 줍니다.  
@@ -131,6 +137,13 @@ responsive_framework는 해상도에 따라서 UI의 다양한 구성을 지원�
 
 * [responsive_framework](https://pub.dev/packages/responsive_framework) - Responsive한 웹/윈도우에 권장
 * [flutter_screenutil](https://pub.dev/packages/flutter_screenutil) - 모바일 플랫폼에 권장
+
+## 5. Runner Scheme 링크 오류
+Git을 통해 프로젝트를 공유할 경우 Scheme의 연결이 잘 못 될 경우가 발생합니다.
+하기 스샷의 하단의 Shared를 체크할 경우 Scheme를 연결한 PC의 절대 경로가 등록되기 때문에 다른 PC에서는 오류가 발생합니다.
+따라서 Shared를 체크 해제 후 사용. 각 PC에서 사용자 파일이 생성되어 진행됩니다.
+만약 단독으로 프로젝트를 진행할 경우에는 어떠한 방식이든 무관합니다.
+![Scheme Share 설정](/assets/images/ios_scheme.png)
 
 # 5. Windows
 ## 1. 배포시 유의 사항
