@@ -12,12 +12,12 @@ toc: true
 toc_sticky: true
 ---
 유니티는 다양한 디자인 솔루션(3DMax, Maya, Blender등)을 지원합니다.
-이번 포스트에서는 Blender에서 제작된 리소스(FBX+Animation)를 유니티로 Import시에 이슈에 대해서 알아봅니다.
+이번 포스트에서는 Blender에서 제작된 리소스(FBX+Animation)를 유니티로 Import 발생 가능한 이슈에 대해 알아보겠습니다.
 
-해당 내용은 Blender 3.0과 Unity3D 2018.4.10f1에서 진행합니다.
+해당 내용은 Blender 3.0과 Unity3D 2018.4.10f1에서 진행되었습니다.
 
-Blender는 프로젝트 파일(.blender)를 바로 유니티로 Import하여 사용이 가능하였습니다.
-하지만 Blender 3.0 버전부터는 Blender에서 FBX를 Export하여 유니티에서 FBX를 Import하여야 합니다.
+Blender는 프로젝트 파일(.blend)를 바로 유니티로 Import하여 사용이 가능하였습니다.
+하지만 Blender 3.0 버전부터는 Blender에서 FBX를 Export한 뒤 유니티에서 해당 파일을 Import하여야 합니다.🙁  
 
 ## 이슈
 1. Texture & Material 연동
@@ -26,7 +26,7 @@ Blender는 프로젝트 파일(.blender)를 바로 유니티로 Import하여 사
 4. 2D Texture Border 이슈
 
 ## 1. Texture & Material 연동
-Blender에서 FBX만 Export후에 유니티에 연동을 하면 Texture와 Material의 정보를 잃게됩니다.
+Blender에서 FBX만 Export한 후에 유니티에 연동을 하면 Texture와 Material의 정보를 잃게됩니다.
 Unpack Texture를 통해서 Texture를 추출한 뒤에 유니티에서 Texture와 FBX를 같이 Import하여야 합니다.
 Import 후 하기 스샷과 같이 Material를 Extract하여야 Material이 생성되며 Texture가 연결됩니다.
 마지막으로 생성된 Material를 통해서 자신에게 맞는 Shader를 지정해 줍니다.
