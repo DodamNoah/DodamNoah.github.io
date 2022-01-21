@@ -7,259 +7,52 @@ categories:
 tags:
   - Unity3D
   - C#
+  - Blender
 toc: true
 toc_sticky: true
 ---
-유니티는 다양한 플랫폼을 지원하지만, 각 플랫폼별 빌드 환경, 구성 및 절차가 상이합니다. 
-유니티는 기본적으로 File > Build Settings(Shift+Ctrl+B)를 통해서 지정된 플랫폼의 빌드가 가능합니다. 
+유니티는 다양한 디자인 솔루션(3DMax, Maya, Blender등)을 지원합니다.
+이번 포스트에서는 Blender에서 제작된 리소스(FBX+Animation)를 유니티로 Import시에 이슈에 대해서 알아봅니다.
 
-단, AOS의 경우는 마켓 등록을 위해서 빌드 후 Signing(Keystore)의 절차등의 추가적인 과정이 필요하며, iOS의 경우는 이전 빌드된 Xcode의 프로젝트를 Modification방식으로 처리가 필요할 때도 있습니다.
+해당 내용은 Blender 3.0과 Unity3D 2018.4.10f1에서 진행합니다.
 
-![Build Settings](/assets/images/unity/unity_build_settings.png)
+Blender는 프로젝트 파일(.blender)를 바로 유니티로 Import하여 사용이 가능하였습니다.
+하지만 Blender 3.0 버전부터는 Blender에서 FBX를 Export하여 유니티에서 FBX를 Import하여야 합니다.
 
-## 1. 빌드 스크립트 생성
-유니티 에디터상의 메뉴를 생성하므로 BuildScript.cs 파일을 Assets/Editor폴더에 생성합니다.
-생성된 파일에 아래와 같이 기본 코드를 추가합니다.
-```cs
-public class BuildScript : MonoBehaviour
-{
-#if UNITY_EDITOR
-    private static readonly string[] _scenes;
-    private static readonly string _targetDir = "Build";
-    private static readonly string _buildName;
+## 이슈
+1. Texture & Material 연동
+2. Scale & Transform 지정
+3. Animation 통합(Optional)
+4. 2D Texture Border 이슈
 
-    // AppManager.Instance라는 SingletonGameObject를 최초 씬에 생성해서 AppConfig를 Serialize(Field)로 관리해서 사용합니다.
-    static BuildScript()
-    {
-        PlayerSettings.productName = AppManager.Instance.AppConfig.ProductName;
-        PlayerSettings.bundleVersion = AppManager.Instance.AppConfig.VersionName;
+## 1. Texture & Material 연동
+Blender에서 FBX만 Export후에 유니티에 연동을 하면 Texture와 Material의 정보를 잃게됩니다.
+Unpack Texture를 통해서 Texture를 추출한 뒤에 유니티에서 Texture와 FBX를 같이 Import하여야 합니다.
+Import 후 하기 스샷과 같이 Material를 Extract하여야 Material이 생성되며 Texture가 연결됩니다.
+마지막으로 생성된 Material를 통해서 자신에게 맞는 Shader를 지정해 줍니다.
+![Export FBX](/assets/images/unity/blender/blender_4.png)
+![Unpack Texture](/assets/images/unity/blender/blender_3.png)
+![Before Extract Material](/assets/images/unity/blender/unity_material_extract_1.png)
+![After Extract Material](/assets/images/unity/blender/unity_material_extract_2.png)
 
-        _buildName = string.Format("{0}_{1}_{2}", AppManager.Instance.AppConfig.BuildName, AppManager.Instance.AppConfig.VersionName, AppManager.Instance.AppConfig.VersionCode);
-        UnityEngine.Debug.Log($"{PlayerSettings.productName}, {PlayerSettings.bundleVersion}");
-        _scenes = FindEnabledEditorScenes();
-    }
+## 2. Scale & Transform 지정
+Blender에서 FBX를 기본 속성으로 Export하면 유니티에서 Scale이 100으로 지정됩니다.
+하기 스샷과 같이 Transform > Apply Scalings를 All Local(기본)에서 FBX Units Scale로 변경을 하여야 유니티에서 Scale값이 1로 지정됩니다.
+또한, Forward를 X Forward로 지정하여야 유니티에서 Y축이 180도가 돌아가지 않은 상태로 처리됩니다.
+마지막으로 Apply Transform를 체크하여 Transform들의 값을 기본 값으로 처리할 수 있습니다.
+![Export FBX Attribute](/assets/images/unity/blender/blender_5.png)
 
-    // File > Build Settings에 등록된 씬을 가져옵니다.
-    private static string[] FindEnabledEditorScenes()
-    {
-        List<string> EditorScenes = new List<string>();
-        foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
-        {
-            if (!scene.enabled) continue;
-            UnityEngine.Debug.Log(string.Format("FindEnabledEditorScenes: {0}", scene.path)); 
-            EditorScenes.Add(scene.path);
-        }
-        return EditorScenes.ToArray();
-    }
+## 3. Animation 통합(Optional)
+간혹 Blender에서 Animation(Clip) 작업을 진행한 뒤 동일 타임라인에 표시(동시 재생)하여도 무관한 Animation(Clip)들이 분할되어 나오는 경우가 있습니다.
+이건 기본 옵션인 All Actions이 체크되어 발생하는 현상이며, 이 옵션은 모든 Action을 단일로 Bake하는 기능입니다.
+만약 모든 Action을 통합하여 유니티에서 Import시 하나의 Animation Clip으로 처리가 필요할 경우 해당 옵션을 체크 해제하시면 됩니다.
+![Export FBX Bake Animation Attribute](/assets/images/unity/blender/blender_2.png)
 
-    // File > Build Settings에 등록된 옵션의 정보를 사용합니다.
-    private static BuildOptions GetBuildOptions()
-    {
-        BuildOptions buildOptions = BuildOptions.None;
+## 4. 2D Texture Border 이슈
+Blender는 3D 제작뿐만이 아닌 2D 제작도 할 경우가 발생합니다. 간혹 아래 스샷과 같이 Import후 텍스쳐의 Border에 라인이 발생하는 이슈가 생길 수 있습니다.
+![Import 2D FBX 이슈](/assets/images/unity/blender/result_1.png)
+이 경우 유니티의 Import한 텍스쳐의 속성을 Default > Sprite(2D and UI)로 변경하면 이슈를 해결할 수 있습니다.
+![Unity3D Texture Attribute](/assets/images/unity/blender/result_1.png)
+![Import 2D FBX 해결](/assets/images/unity/blender/result_2.png)
 
-        if (EditorUserBuildSettings.symlinkLibraries) buildOptions |= BuildOptions.SymlinkLibraries;
-        if (EditorUserBuildSettings.development) buildOptions |= BuildOptions.Development;
-        if (EditorUserBuildSettings.connectProfiler) buildOptions |= BuildOptions.ConnectWithProfiler;
-        if (EditorUserBuildSettings.allowDebugging) buildOptions |= BuildOptions.AllowDebugging;
-
-        UnityEngine.Debug.Log(string.Format("BuildOptions:{0}", buildOptions));
-
-        return buildOptions;
-    }
-
-    // % (ctrl on Windows, cmd on OS X), # (shift), & (alt) (ex.%&#p)
-    [MenuItem("RE:CUBE/Build/General #%o")]
-    static void Build()
-    {
-        switch (EditorUserBuildSettings.activeBuildTarget)
-        {
-            case BuildTarget.StandaloneWindows: BuildWin32(); break;
-            case BuildTarget.StandaloneWindows64: BuildWin64(); break;
-            case BuildTarget.Android: BuildAndroid(); break;
-            case BuildTarget.iOS: BuildIPhone(); break;
-            case BuildTarget.WebGL: BuildWebGL(); break;
-            default:
-                {
-                    UnityEngine.Debug.LogError(string.Format("not support build target   :{0}", EditorUserBuildSettings.activeBuildTarget));
-                    break;
-                }
-
-        }
-    }
-    
-    // 타겟 플랫폼과 얻어온 씬의 정보를 통해 빌드를 진행합니다.
-    private static bool GenericBuild(string[] scenes, string targetDir, BuildTarget buildTarget, BuildOptions buildOptions)
-    {
-        UnityEngine.Debug.Log(string.Format("Generic build target dir:{0}", targetDir));
-
-        bool buildSucceed = true;
-
-        if (buildTarget != EditorUserBuildSettings.activeBuildTarget)
-        {
-            buildSucceed = false;
-            UnityEngine.Debug.Log(string.Format("GenericBuild has stopped:{0}", buildTarget));
-            return false;
-        }
-
-        UnityEditor.Build.Reporting.BuildReport report = BuildPipeline.BuildPlayer(scenes, targetDir, buildTarget, buildOptions);
-        UnityEngine.Debug.Log(string.Format("GenericBuild has succeed:{0}", report.summary));
-        
-        return buildSucceed;
-    }
-
-    private static void CreateDirectory(string path)
-    {
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-        }
-    }
-#endif
-}
-```
-## 2. 빌드 메뉴 구성
-아래와 같이 MenuItem을 활용하면 스샷처럼 유니티 메뉴가 생성되며, 단축키(#%xxx) 지정도 가능합니다.
-![Build Menu](/assets/images/unity/unity_build_menu.png)
-```cs
-[MenuItem("RE:CUBE/Build/General #%o")]
-static void Build()
-{
-  ...
-}
-```
-## 3. 플랫폼별 스크립트 작성
-### 3-1. Android
-   ```cs
-   static void BuildAndroid()
-   {
-      BuildOptions buildOptions = GetBuildOptions();
-      PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Android, AppManager.Instance.AppConfig.BundleName);
-
-      PlayerSettings.Android.bundleVersionCode = AppManager.Instance.AppConfig.VersionCode;
-      PlayerSettings.Android.keyaliasName = AppManager.Instance.AppConfig.KeyaliasName;
-      PlayerSettings.Android.keyaliasPass = PlayerSettings.Android.keystorePass = AppManager.Instance.AppConfig.KeyaliasPass;
-      PlayerSettings.statusBarHidden = AppManager.Instance.HiddenStatusBar;
-
-      string _path = Application.dataPath;
-      _path = _path.Substring(0, _path.LastIndexOf('/'));
-
-      PlayerSettings.Android.keystoreName = string.Format("{0}/helper/{1}", _path, AppManager.Instance.AppConfig.KeystoreName);
-
-      UnityEngine.Debug.Log($"BuildAndroid keystoreName: {PlayerSettings.Android.keystoreName}, keyaliasName: {PlayerSettings.Android.keyaliasName}");
-
-      string _buildTargetPath = BuildPath("android");
-      CreateDirectory(_buildTargetPath);
-
-      string _fileName = "";
-      if (EditorUserBuildSettings.buildAppBundle)
-          _fileName = string.Format("{0}/{1}.aab", _buildTargetPath, _buildName);
-      else
-          _fileName = string.Format("{0}/{1}.apk", _buildTargetPath, _buildName);
-
-      GenericBuild(_scenes, _fileName, BuildTarget.Android, buildOptions);
-   }
-   ```
-
-### 3-2. iOS
-   ```cs
-   static void BuildIPhone()
-   {
-       BuildOptions buildOptions = GetBuildOptions();
-       PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, AppManager.Instance.AppConfig.BundleName);
-
-       // 최초 빌드시에는 제거한다.(이 옵션의 의미는 Unity에서 프로젝트를 iOS버전으로 빌드할때 현재 이미 빌드된 프로젝트 파일들이 있을 경우 Replace하지 말고 Merge하라는 의미)
-       // XCode 프로젝트를 생성하는 첫번째 빌드시에는 제외시켜야 한다.
-       if (PlayerPrefs.GetInt("BuiltHistory") == 1)
-       {
-           buildOptions |= BuildOptions.AcceptExternalModificationsToPlayer;
-       }
-
-       PlayerSettings.iOS.buildNumber = AppManager.Instance.AppConfig.VersionCodeString;
-       PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK;
-       PlayerSettings.iOS.targetOSVersionString = AppManager.Instance.AppConfig.IOSTargetVersion;
-       PlayerSettings.statusBarHidden = AppManager.Instance.HiddenStatusBar;
-       //PlayerSettings.iOS.allowHTTPDownload = true;
-
-       string _buildTargetPath = BuildPath("ios");
-       CreateDirectory(_buildTargetPath);
-
-       GenericBuild(_scenes, _buildTargetPath, BuildTarget.iOS, buildOptions);
-
-       PlayerPrefs.SetInt("BuiltHistory", 1);
-       PlayerPrefs.Save();
-   }
-
-   // iOS의 경우 PostProcess를 통해 Xcode의 속성값 변경등에 활용할 수 있습니다.
-   [PostProcessBuildAttribute(1)]
-   public static void OnPostprocessBuild(BuildTarget buildTarget, string pathToBuiltProject)
-   {
-       if (buildTarget != BuildTarget.iOS) 
-           return;
-   }
-   ```
-
-### 3-3. Web
-   ```cs
-   static void BuildWebGL()
-   {
-       BuildOptions buildOptions = GetBuildOptions();
-       PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.WebGL, AppManager.Instance.AppConfig.BundleName);
-
-       // 아래 설정은 프로젝트 Publishing Settings에서 처리
-       //PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip; // 가급적 모든 브라우저에서 http, https를 지원하기 위함
-       //PlayerSettings.WebGL.memorySize = 1024;
-
-       string _buildTargetPath = BuildPath("webgl");
-       CreateDirectory(_buildTargetPath);
-
-       GenericBuild(_scenes, _buildTargetPath, BuildTarget.WebGL, buildOptions);
-   }
-   ```
-
-### 3-4. Windows
-   ```cs
-   static void BuildWin32()
-   {
-       BuildOptions buildOptions = GetBuildOptions();
-       PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, AppManager.Instance.AppConfig.BundleName);
-
-       string _fileName = string.Format("{0}.exe", PlayerSettings.productName);
-
-       string _buildTargetPath = BuildPath("win32");
-       CreateDirectory(_buildTargetPath);
-       GenericBuild(_scenes, _buildTargetPath + "/" + _fileName, BuildTarget.StandaloneWindows, buildOptions);
-
-       RunProcess(_fileName, "win32");
-   }
-
-   static void BuildWin64()
-   {
-       BuildOptions buildOptions = GetBuildOptions();
-       PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.Standalone, AppManager.Instance.AppConfig.BundleName);
-
-       string _fileName = string.Format("{0}.exe", _buildName);
-
-       string _buildTargetPath = BuildPath("win64");
-       CreateDirectory(_buildTargetPath);
-       GenericBuild(_scenes, _buildTargetPath + "/" + _fileName, BuildTarget.StandaloneWindows64, buildOptions);
-
-       RunProcess(_fileName, "win64");
-   }
-   ```
-
-### 3-5. 추가 스크립트
-   ```cs
-   // GenericBuild이후에 추가 스크립트
-   // 윈도우 버전의 빌드 후 실행, 빌드 후 특정 bat, sh파일 실행으로 자동화 추가를 할 수 있습니다.
-   private static void RunProcess(string fileName, string subPath)
-   {
-       // Run after the build
-       var _process = new Process();
-       _process.StartInfo.FileName = string.Format("{0}/{1}", BuildPath(subPath), fileName);
-       _process.Start();
-   }
-   ```
-
-***[Unity3D 빌드 메뉴](https://docs.unity3d.com/ScriptReference/MenuItem.html)***
-
-***해당 스크립트는 예전에 작성한 부분이라 요즘에는 더 좋은 방법이 있을 듯 하지만, 현재도 잘 사용하고 있기에 공유합니다.***🧐 
+***이번에 Blender3.0과 Unity3D를 연동하면서 겪은 이슈에 대해서 부족한 지식이지만 공유하게되었습니다. 조금이나마 도움이 되었으면 합니다.***🧐 
