@@ -39,19 +39,19 @@ Import 후 하기 스샷과 같이 Material를 Extract하여야 Material이 생�
 Blender에서 FBX를 기본 속성으로 Export하면 유니티에서 Scale이 100으로 지정됩니다.
 하기 스샷과 같이 Transform > Apply Scalings를 All Local(기본)에서 FBX Units Scale로 변경을 하여야 유니티에서 Scale값이 1로 지정됩니다.
 또한, Forward를 X Forward로 지정하여야 유니티에서 Y축이 180도가 돌아가지 않은 상태로 처리됩니다.
-마지막으로 Apply Transform를 체크하여 Transform들의 값을 기본 값으로 처리할 수 있습니다.
+마지막으로 Apply Transform를 체크하여 Transform들의 값을 기본 값으로 처리할 수 있습니다.  
 ![Export FBX Attribute](/assets/images/unity/blender/blender_5.png)
 
 ## 3. Animation 통합(Optional)
 간혹 Blender에서 Animation(Clip) 작업을 진행한 뒤 동일 타임라인에 표시(동시 재생)하여도 무관한 Animation(Clip)들이 분할되어 나오는 경우가 있습니다.
 이건 기본 옵션인 All Actions이 체크되어 발생하는 현상이며, 이 옵션은 모든 Action을 단일로 Bake하는 기능입니다.
-만약 모든 Action을 통합하여 유니티에서 Import시 하나의 Animation Clip으로 처리가 필요할 경우 해당 옵션을 체크 해제하시면 됩니다.
+만약 모든 Action을 통합하여 유니티에서 Import시 하나의 Animation Clip으로 처리가 필요할 경우 해당 옵션을 체크 해제하시면 됩니다.  
 ![Export FBX Bake Animation Attribute](/assets/images/unity/blender/blender_2.png)
 
 ## 4. 2D Texture Border 이슈
-Blender는 3D 제작뿐만이 아닌 2D 제작도 할 경우가 발생합니다. 간혹 아래 스샷과 같이 Import후 텍스쳐의 Border에 라인이 발생하는 이슈가 생길 수 있습니다.
+Blender는 3D 제작뿐만이 아닌 2D 제작도 할 경우가 발생합니다. 간혹 아래 스샷과 같이 Import후 텍스쳐의 Border에 라인이 발생하는 이슈가 생길 수 있습니다.  
 ![Import 2D FBX 이슈](/assets/images/unity/blender/result_1.png)
-이 경우 유니티의 Import한 텍스쳐의 속성을 Default > Sprite(2D and UI)로 변경하면 이슈를 해결할 수 있습니다.
+이 경우 유니티의 Import한 텍스쳐의 속성을 Default > Sprite(2D and UI)로 변경하면 이슈를 해결할 수 있습니다.  
 ![Unity3D Texture Attribute](/assets/images/unity/blender/result_1.png)
 ![Import 2D FBX 해결](/assets/images/unity/blender/result_2.png)
 
