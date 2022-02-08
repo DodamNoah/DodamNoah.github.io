@@ -38,7 +38,7 @@ Import 후 하기 스샷과 같이 Material를 Extract하여야 Material이 생�
 ## 2. Scale & Transform 지정
 Blender에서 FBX를 기본 속성으로 Export하면 유니티에서 Scale이 100으로 지정됩니다.
 하기 스샷과 같이 Transform > Apply Scalings를 All Local(기본)에서 FBX Units Scale로 변경을 하여야 유니티에서 Scale값이 1로 지정됩니다.
-또한, Forward를 X Forward로 지정하여야 유니티에서 Y축이 180도가 돌아가지 않은 상태로 처리됩니다.
+또한, Forward를 X Forward로 지정하여야 유니티에서 Y축이 180도가 돌아가지 않은 상태로 처리됩니다.(Optional)  
 마지막으로 Apply Transform를 체크하여 Transform들의 값을 기본 값으로 처리할 수 있습니다.  
 ![Export FBX Attribute](/assets/images/unity/blender/blender_5.png)
 
