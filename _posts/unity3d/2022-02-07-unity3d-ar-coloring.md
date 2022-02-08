@@ -14,7 +14,7 @@ toc_sticky: true
 유니티와 Maxst 마커를 통한 색칠증강 콘텐츠 제작 방법을 기술합니다.  
 ***해당 내용은 사적인 부분으로 다른 분들의 일반 정보 사용에 도움이 되지는 않을 듯 합니다.***
 
-색칠 증강을 위한 메쉬 생성은 UCLAGameLab 라이브러리를 사용하였습니다.
+색칠 증강을 위한 메쉬 생성은 UCLAGameLab 라이브러리를 사용하였습니다.  
 [UCLAGameLab 라이브러리](https://github.com/uclagamelab/MeshCreator)
 
 ## 1.개요
