@@ -1,6 +1,6 @@
 ---
 title:  "[Unity3D] Unity3D AR 색칠증강 콘텐츠 제작"
-excerpt: "Unity3D에서 2D마커 색칠증강 콘텐츠를 제작하는 방법을 설명합니다.(개인 정보)"
+excerpt: "Unity3D에서 2D마커 색칠증강 콘텐츠를 제작하는 방법을 설명합니다."
 date:   2022-02-07 17:30:00 +0530
 categories:
   - Unity3D
@@ -11,7 +11,7 @@ tags:
 toc: true
 toc_sticky: true
 ---
-유니티와 Maxst 마커를 통한 색칠증강 콘텐츠 제작 방법을 기술합니다.
+유니티와 Maxst 마커를 통한 색칠증강 콘텐츠 제작 방법을 기술합니다.  
 ***해당 내용은 사적인 부분으로 다른 분들의 일반 정보 사용에 도움이 되지는 않을 듯 합니다.***
 
 색칠 증강을 위한 메쉬 생성은 UCLAGameLab 라이브러리를 사용하였습니다.
@@ -24,7 +24,7 @@ toc_sticky: true
 색칠증강에 사용하는 마커에서 전체 또는 특정 영역(텍스쳐 생성 영역)의 정보를 얻어옵니다.  
 Coloring 씬을 선택해서 진행합니다.  
 1. Marker의 Prefab(tale220551)를 올려놓는다.(오른쪽 마우스로 Unpack all)
-    * (중요) 원본 Prefab에 영향을 주지 않기 위함!!!
+    * **(중요) 원본 Prefab에 영향을 주지 않기 위함!!!**
 2. UIImageTarget_ 중에 색칠 증강이 있는 항목에 다음 GameObject 추가
     * DummyRegionCapture (Reset)
         * RegionCapture
@@ -33,7 +33,9 @@ Coloring 씬을 선택해서 진행합니다.
     * 해당 Plane의 Left, Right, Top, Bottom 영역을 조정해서 영역을 지정
     * Transform 값을 복사해서 RegionCapture에 복사
 5. 영역이 여러개면 위의 RegionCapture를 여러개 생성해서 처리한다.  
-![AR뷰어_2D_색칠증강_영역구하기](/assets/movies/unity/ar_2d_coloring_transform.mp4)
+<video width="100%" height="100%" controls="controls">
+  <source src="/assets/images/movies/unity/ar_2d_coloring_transform.mp4" type="video/mp4">
+</video>
 
 ## 3. 콘텐츠 제작
 색칠증강을 통해서 생성한 텍스쳐를 적용해서 실질적으로 마커에 반응할 리소스(Prefab)을 제작합니다.  
@@ -46,6 +48,8 @@ Coloring 씬을 선택해서 진행합니다.
 7. Mesh Create Data 스크립트 제거
 8. RC_Get_Texture 스크립트를 Add Component 한다.
 9. 메인에 붙인 Modify Animation Play의 Add Region Capture를 클릭해서 Region Capture Info를 갱신한다.  
-![AR뷰어_2D_색칠증강_콘텐츠제작](/assets/movies/unity/ar_2d_coloring_contents.mp4)
+<video width="100%" height="100%" controls="controls">
+  <source src="/assets/images/movies/unity/ar_2d_coloring_contents.mp4" type="video/mp4">
+</video>
 
 ***해당 내용은 사적인 부분으로 다른 분들의 일반 정보 사용에 도움이 되지는 않을 듯 합니다.***🧐 
