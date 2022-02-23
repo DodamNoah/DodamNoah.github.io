@@ -14,8 +14,8 @@ toc_sticky: true
 
 이번 포스트는 Flutter 2.2.3 버전으로 진행합니다.
 
-1. Android  
-* Flutter 프로젝트의 android/app 폴더내의 build.gradle 수정   
+# 1. Android  
+Flutter 프로젝트의 android/app 폴더내의 build.gradle 수정   
 
 ```
 apply plugin: 'com.android.application'
@@ -81,11 +81,11 @@ android.applicationVariants.all { variant ->
     }
 }
 ```
-1. iOS  
-2. Dart(Optional)  
-* Dart쪽에서도 Flavor에 따라서 다르게 코드를 진행할 경우에는 하기와 같이 처리합니다.  
-* 일반적으로 main.dart에 있는 내용을 main_common.dart로 옮긴 뒤 각 Flavor에 맞는 main_${Flavor명}.dart를 생성해서 처리합니다.  
-* 이후 UI/UX 구성시 Flavor에 따라서 다르게 처리가 필요할 경우 Environment.buildType을 통해서 분기 처리해 줍니다.  
+# 2. iOS  
+# 3. Dart(Optional)  
+Dart쪽에서도 Flavor에 따라서 다르게 코드를 진행할 경우에는 하기와 같이 처리합니다.  
+일반적으로 main.dart에 있는 내용을 main_common.dart로 옮긴 뒤 각 Flavor에 맞는 main_${Flavor명}.dart를 생성해서 처리합니다.  
+이후 UI/UX 구성시 Flavor에 따라서 다르게 처리가 필요할 경우 Environment.buildType을 통해서 분기 처리해 줍니다.  
 
 * Environment 클래스  
 ```
@@ -122,13 +122,13 @@ Future<void> main() async => Environment.newInstance(BuildType.branch).run();
 import 'package:hangul_yaho/services/environment.dart';
 Future<void> main() async => Environment.newInstance(BuildType.admin).run();
 ```   
-4. Build  
+# 4. Build  
 ```
 flutter build apk --flavor ${flavor명} -t lib/main_${flavor명}.dart
 >> flutter build apk --flavor admin -t lib/main_admin.dart
 ```
-5. Visual Studio Code(Debug)  
-* 비주얼 스튜티오 코드에서 Flavor를 통한 디버깅 빌드의 경우 .vscode/launch.json에 하기와 같이 처리후 사용하면 됩니다.  
+# 5. Visual Studio Code(Debug)  
+비주얼 스튜티오 코드에서 Flavor를 통한 디버깅 빌드의 경우 .vscode/launch.json에 하기와 같이 처리후 사용하면 됩니다.  
 ```
 {
   "version": "0.2.0",
@@ -162,3 +162,4 @@ flutter build apk --flavor ${flavor명} -t lib/main_${flavor명}.dart
   ]
 }
 ```   
+[참조](https://medium.com/@dev.juyoung/flutter-flavor%EB%A5%BC-%ED%86%B5%ED%95%9C-%EB%B9%8C%EB%93%9C-%EB%B3%80%ED%98%95-part-1-161be6928c50)
