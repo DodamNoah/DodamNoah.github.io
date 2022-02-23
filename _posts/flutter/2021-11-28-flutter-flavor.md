@@ -15,7 +15,8 @@ toc_sticky: true
 이번 포스트는 Flutter 2.2.3 버전으로 진행합니다.
 
 1. Android  
-* Flutter 프로젝트의 android/app 폴더내의 build.gradle 수정  
+* Flutter 프로젝트의 android/app 폴더내의 build.gradle 수정   
+
 ```
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -80,8 +81,8 @@ android.applicationVariants.all { variant ->
     }
 }
 ```
-2. iOS  
-3. Dart(Optional)  
+1. iOS  
+2. Dart(Optional)  
 * Dart쪽에서도 Flavor에 따라서 다르게 코드를 진행할 경우에는 하기와 같이 처리합니다.  
 * 일반적으로 main.dart에 있는 내용을 main_common.dart로 옮긴 뒤 각 Flavor에 맞는 main_${Flavor명}.dart를 생성해서 처리합니다.  
 * 이후 UI/UX 구성시 Flavor에 따라서 다르게 처리가 필요할 경우 Environment.buildType을 통해서 분기 처리해 줍니다.  
