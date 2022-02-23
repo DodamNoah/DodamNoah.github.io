@@ -111,19 +111,17 @@ class Environment {
   Future run() async {
     await mainCommon(_buildType);
   }
-```
+```   
 * main_brach.dart  
 ```
 import 'package:hangul_yaho/services/environment.dart';
-
 Future<void> main() async => Environment.newInstance(BuildType.branch).run();
-```
+```   
 * main_admin.dart  
 ```
 import 'package:hangul_yaho/services/environment.dart';
-
 Future<void> main() async => Environment.newInstance(BuildType.admin).run();
-```
+```   
 4. Build  
 ```
 flutter build apk --flavor ${flavor명} -t lib/main_${flavor명}.dart
@@ -163,4 +161,4 @@ flutter build apk --flavor ${flavor명} -t lib/main_${flavor명}.dart
     }
   ]
 }
-```
+```   
