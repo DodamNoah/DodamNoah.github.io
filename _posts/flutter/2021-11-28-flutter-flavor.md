@@ -87,7 +87,7 @@ Dart쪽에서도 Flavor에 따라서 다르게 코드를 진행할 경우에는 
 일반적으로 main.dart에 있는 내용을 main_common.dart로 옮긴 뒤 각 Flavor에 맞는 main_${Flavor명}.dart를 생성해서 처리합니다.  
 이후 UI/UX 구성시 Flavor에 따라서 다르게 처리가 필요할 경우 Environment.buildType을 통해서 분기 처리해 줍니다.  
 
-* Environment 클래스  
+**Environment 클래스**  
 ```
 enum BuildType {
   branch,
@@ -112,14 +112,14 @@ class Environment {
     await mainCommon(_buildType);
   }
 ```   
-* main_brach.dart  
+**lib/main_brach.dart**  
 ```
-import 'package:hangul_yaho/services/environment.dart';
+import 'environment.dart';
 Future<void> main() async => Environment.newInstance(BuildType.branch).run();
 ```   
-* main_admin.dart  
+**lib/main_admin.dart**  
 ```
-import 'package:hangul_yaho/services/environment.dart';
+import 'environment.dart';
 Future<void> main() async => Environment.newInstance(BuildType.admin).run();
 ```   
 # 4. Build  
