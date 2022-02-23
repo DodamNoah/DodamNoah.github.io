@@ -14,6 +14,152 @@ toc_sticky: true
 
 이번 포스트는 Flutter 2.2.3 버전으로 진행합니다.
 
-1. Android
-2. iOS
-3. Dart
+1. Android  
+* Flutter 프로젝트의 android/app 폴더내의 build.gradle 수정
+'''
+apply plugin: 'com.android.application'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+**def flavor**
+
+android {
+  sourceSets {
+      main.java.srcDirs += 'src/main/kotlin'
+      // Flavor별로 AndroidManifest.xml를 다르게 지정할 경우에는 하기와 같이 처리합니다.  
+      // 지정하지 않을 경우 app/src/main 폴더에 있는 AndroidManifest.xml 파일이 자동으로 지정됩니다.  
+      admin {
+          manifest.srcFile('src/admin/AndroidManifest.xml')
+      }
+  }
+
+  // keystore가 다를 경우에만 지정한다.
+  signingConfigs {
+      branch {
+          keyAlias keystoreProperties['keyAlias']
+          keyPassword keystoreProperties['keyPassword']
+          storeFile file(keystoreProperties['storeFile'])
+          storePassword keystoreProperties['storePassword']
+      }
+      admin {
+          keyAlias keystoreProperties['keyAlias']
+          keyPassword keystoreProperties['keyPassword']
+          storeFile file(keystoreProperties['storeFile'])
+          storePassword keystoreProperties['storePassword']
+      }
+  }
+
+  flavorDimensions "build-type"
+  productFlavors {
+      branch {
+          dimension "build-type"
+          signingConfig signingConfigs.branch // signing이 다를 경우에는 각 signing에 맞게 지정  
+          resValue "string", "app_name", "Sample"
+      }
+      admin {
+          dimension "build-type"
+          applicationIdSuffix ".admin"
+          signingConfig signingConfigs.admin
+          resValue "string", "app_name", "Sample Admin"
+      }
+  }
+}
+
+// [Tip] 하기와 같이 처리하면 빌드시 추출되는 apk파일명을 Flavor에 따라서 다르게 처리 가능합니다.  
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        def appName = "Sample"
+        // def buildType = variant.variantData.variantConfiguration.buildType.name
+        def buildType = variant.buildType.name
+        def newName
+        if (buildType == 'debug'){
+            newName = "${appName}_${variant.getFlavorName()}-debug-${variant.versionName}_${variant.versionCode}.apk"
+        } else {
+            newName = "${appName}_${variant.getFlavorName()}-${variant.versionName}_${variant.versionCode}.apk"
+        }
+        outputFileName = newName
+    }
+}
+'''
+2. iOS  
+3. Dart(Optional)  
+* Dart쪽에서도 Flavor에 따라서 다르게 코드를 진행할 경우에는 하기와 같이 처리합니다.  
+* 일반적으로 main.dart에 있는 내용을 main_common.dart로 옮긴 뒤 각 Flavor에 맞는 main_${Flavor명}.dart를 생성해서 처리합니다.  
+* 이후 UI/UX 구성시 Flavor에 따라서 다르게 처리가 필요할 경우 Environment.buildType을 통해서 분기 처리해 줍니다.  
+
+* Environment 클래스  
+'''
+enum BuildType {
+  branch,
+  admin
+}
+class Environment {
+  //
+  static Environment _instance;
+  static Environment get instance => _instance;
+  final BuildType _buildType;
+  static BuildType get buildType => instance._buildType;
+  const Environment._internal(this._buildType);
+  factory Environment.newInstance(BuildType buildType) {
+    assert(buildType != null);
+    if (_instance == null) {
+      _instance = Environment._internal(buildType);
+    }
+    return _instance;
+  }
+
+  Future run() async {
+    await mainCommon(_buildType);
+  }
+'''
+* main_brach.dart  
+'''
+import 'package:hangul_yaho/services/environment.dart';
+
+Future<void> main() async => Environment.newInstance(BuildType.branch).run();
+'''
+* main_admin.dart  
+'''
+import 'package:hangul_yaho/services/environment.dart';
+
+Future<void> main() async => Environment.newInstance(BuildType.admin).run();
+'''
+4. Build  
+'''
+flutter build apk --flavor ${flavor명} -t lib/main_${flavor명}.dart
+>> flutter build apk --flavor admin -t lib/main_admin.dart
+'''
+5. Visual Studio Code(Debug)  
+* 비주얼 스튜티오 코드에서 Flavor를 통한 디버깅 빌드의 경우 .vscode/launch.json에 하기와 같이 처리후 사용하면 됩니다.  
+'''
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter iOS",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "Flutter AOS Branch",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main_branch.dart",
+      "args" : [
+        "--flavor",
+        "branch"
+      ]
+    },
+    {
+      "name": "Flutter AOS Admin",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main_admin.dart",
+      "args" : [
+        "--flavor",
+        "admin"
+      ]
+    }
+  ]
+}
+'''

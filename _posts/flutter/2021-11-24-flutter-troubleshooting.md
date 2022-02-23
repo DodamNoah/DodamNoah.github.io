@@ -129,6 +129,13 @@ flutter: Failed to load video: Operation Stopped
 ![Archive 오류](/assets/images/ios_icon_issue.png)
 [해결 방법 링크](https://stackoverflow.com/questions/46585809/error-itms-90717-invalid-app-store-icon)
 
+## 5. Runner Scheme 링크 오류
+Git을 통해 프로젝트를 공유할 경우 Scheme의 연결이 잘 못 될 경우가 발생합니다.
+하기 스샷의 하단의 Shared를 체크할 경우 Scheme를 연결한 PC의 절대 경로가 등록되기 때문에 다른 PC에서는 오류가 발생합니다.
+따라서 Shared를 체크 해제 후 사용. 각 PC에서 사용자 파일이 생성되어 진행됩니다.
+만약 단독으로 프로젝트를 진행할 경우에는 어떠한 방식이든 무관합니다.
+![Scheme Share 설정](/assets/images/ios_scheme.png)  
+
 # 4. Web
 웹의 경우는 사용자가 다양하게 브라우저의 크기를 조절할 수 있으므로 Responsive한 UI구성이 무엇보다 중요합니다.  
 responsive_framework는 해상도에 따라서 UI의 다양한 구성을 지원하며, flutter_screenutil의 경우 대표 해상도를 기준으로 확대/축소 방식을 지원합니다.  
@@ -137,13 +144,6 @@ responsive_framework는 해상도에 따라서 UI의 다양한 구성을 지원�
 
 * [responsive_framework](https://pub.dev/packages/responsive_framework) - Responsive한 웹/윈도우에 권장
 * [flutter_screenutil](https://pub.dev/packages/flutter_screenutil) - 모바일 플랫폼에 권장
-
-## 5. Runner Scheme 링크 오류
-Git을 통해 프로젝트를 공유할 경우 Scheme의 연결이 잘 못 될 경우가 발생합니다.
-하기 스샷의 하단의 Shared를 체크할 경우 Scheme를 연결한 PC의 절대 경로가 등록되기 때문에 다른 PC에서는 오류가 발생합니다.
-따라서 Shared를 체크 해제 후 사용. 각 PC에서 사용자 파일이 생성되어 진행됩니다.
-만약 단독으로 프로젝트를 진행할 경우에는 어떠한 방식이든 무관합니다.
-![Scheme Share 설정](/assets/images/ios_scheme.png)
 
 # 5. Windows
 ## 1. 배포시 유의 사항
