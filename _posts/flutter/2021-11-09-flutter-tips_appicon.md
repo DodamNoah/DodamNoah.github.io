@@ -31,7 +31,7 @@ dev_dependencies:
     image_path: "icon/app_icon.png"
 ```
 Android, iOS의 앱 아이콘을 다르게 지정할 때는 하기와 같이 처리합니다.  
-iOS의 경우 remove_alpha_ios: true를 지정해줘야 TestFlight에 정상 등록이 가능하다.  
+iOS의 경우 remove_alpha_ios: true를 지정해줘야 TestFlight에 정상 등록이 가능합니다.  
 ```bash
 
   flutter_icons:
