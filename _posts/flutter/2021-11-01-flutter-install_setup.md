@@ -112,9 +112,12 @@ Visual Studio Code를 통해서 Flutter를 개발시 다음의 Visual Studio Cod
 * Flutter Commands
 * Pubspec Assist
 * Flutter Widget Snippets
+* Better Comments
+* Image Preview
 * Awesome Flutter Snippets
+* Error Lens
 * Advanced-new-file
-* Bracket Pair Colorizer
+* Bracket Pair Colors2
 * Material Icon Theme / Material Theme Icons
 * Todo Tree
 * Dart data Class Generator
