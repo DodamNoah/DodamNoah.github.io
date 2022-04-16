@@ -15,9 +15,9 @@ toc_sticky: true
 유니티에서 파일/폴더를 아마존 S3에 올린 뒤 무효화(Invalidation)를 진행하여 CloudFront에 바로 반영되는 방법을 알아보도록 하겠습니다.
 이번 포스트를 통해서 작성되는 AWSManager는 하기 링크에서 확이 바랍니다.  
 
-**[AWSManager 클래스 코드](/assets/file/AWSManager.cs)**  
+**[AWSManager 클래스 코드 소스 다운로드](/assets/file/AWSManager.cs)**  
 
-해당 내용은 Unity3D 2018.4.10f1에서 진행되었습니다. 
+이번 포스트는 Unity3D 2018.4.10f1 환경에서 진행되었습니다. 
 
 ## 1. 선행 작업  
 * AWS DLL 추가  
@@ -143,6 +143,7 @@ private void UploadDirectory(UploadInfo uploadInfo)
 ```
 ## 3. 업로드 무효화(Invalidation)  
 AWS S3을 통한 CloudFront를 사용할 경우 동일한 경로/이름의 파일 및 폴더를 업데이트 한 경우 기존 항목에 대한 파일 무효화를 진행하여야 바로 반영이 됩니다. 무효화는 파일 및 폴더를 업로드 성공시에 바로 처리하면 됩니다. 그렇지 않을 경우 특정 시간뒤의 갱신이 되며, 자세한 내용은 하기 문서를 참고 바랍니다.   
+무효화는 한번에 여러개의 파일/폴더를 지정해서 처리할 수 있지만, 여기에서는 업로드 후 개별 처리 하였으니 참고 바랍니다.  
 * [AWS CloudFront Invalidation](https://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html)  
 ```cs
 // invalidPath : bucket 저장소의 루트부터의 폴더명 또는 파일명, subPath가 있을 경우 subPath가 포함된 경우
