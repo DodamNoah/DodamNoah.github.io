@@ -56,12 +56,12 @@ private void UploadFile(UploadInfo uploadInfo)
         if (!string.IsNullOrEmpty(pathAndQuery))
         {
             // 버킷의 루트가 아닌 서브 경로에 올릴 경우 처리 
-            subDestPath = System.IO.Path.Combine(subDestPath, pathAndQuery);
+            subDestPath = string.Concat(subDestPath, pathAndQuery);
         }
         if (!string.IsNullOrEmpty(_currentUploadInfo.DestDir))
         {
             // 업로드하는 파일에 추가 서브 경로가 있을 경우 처리 
-            subDestPath = System.IO.Path.Combine(subDestPath, _currentUploadInfo.DestDir);
+            subDestPath = string.Concat(subDestPath, _currentUploadInfo.DestDir);
         }        
         // 업로드 객체 생성
         TransferUtilityUploadRequest request = new TransferUtilityUploadRequest()
@@ -111,7 +111,7 @@ private void UploadDirectory(UploadInfo uploadInfo)
         }
         if (!string.IsNullOrEmpty(_currentUploadInfo.DestDir))
         {
-            subDestPath = System.IO.Path.Combine(subDestPath, _currentUploadInfo.DestDir);
+            subDestPath = string.Concat(subDestPath, _currentUploadInfo.DestDir);
         }
 
         TransferUtilityUploadDirectoryRequest request = new TransferUtilityUploadDirectoryRequest()
