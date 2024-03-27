@@ -63,7 +63,8 @@ $ git status // 현 (원격) 저장소 및 로컬(Stage) 상태 확인
 - git commit -m "설명문"을 통해 빠르게 commit 하는 연습을 하자.
 - hello.txt를 pull했는데 충돌이 일어낫다 -> 메모장을 킨 후 충돌이 일어난 부분을 확인 후 수정하여 다시 한번 더 merge를 시킨 후 충돌이 해결된이후에 push를 해주자. 
 - 파일 수정 - add - commit - pull - push 순서는 반드시 지켜주자!
+- git command에 익숙해지기 전까지는 절대로 SourceTree와 같은 git툴을 사용하지 말고 terminal을 통한 직접 명령어로 숙지!!
 
-### 1. "어떤 바보라도 컴퓨터가 이해할 수 있는 코드를 작성할 수 있습니다. 훌륭한 프로그래머는 인간이 이해할 수 있는 코드를 작성합니다." - Martin Fowler
+***"어떤 바보라도 컴퓨터가 이해할 수 있는 코드를 작성할 수 있습니다. 훌륭한 프로그래머는 인간이 이해할 수 있는 코드를 작성합니다." - Martin Fowler***  
 ***"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."***
 
