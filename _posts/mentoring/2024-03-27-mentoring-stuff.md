@@ -27,15 +27,15 @@ toc_sticky: true
 ## 3. 상속 개념(Inheritance)
 - 모든 언어(Java, C#, JS, Dart등)에서 제공하는 개념으로 항상 프로그래밍을 할 때 고려  
 - Abstract, Interface는 왜 중요하며 차이점은 몰까?  
-```java
+```java  
 enum ConsumerType {
   vip,
   family
 }
 
 public abstract class Consumer {
-  // CType() 함수와 같이 구현부가 없는 함수를 정의할 경우에는 abstract를 사용해야 한다.
-  // 일반 class에서는 불가하다.
+  // CType() 함수와 같이 구현부가 없는 함수를 정의할 경우에는 abstract를 사용해야 한다.  
+  // 일반 class에서는 불가하다.  
   public abstract ConsumerType CType();
   public void price() { }
 }
@@ -60,29 +60,29 @@ public class FamilyConsumer extends Consumer {
   public void price() { }
 }
 
-// 일반적으로 사용법 1의 경우를 많이 사용한다. 단, 구조상에 따라서 적합한 방식을 채택하여 사용하자.
+// 일반적으로 사용법 1의 경우를 많이 사용한다. 단, 구조상에 따라서 적합한 방식을 채택하여 사용하자.  
 public static void main(String[] args) {
-  // 사용법 1
-  // 하나의 객체를 선언 상황에 맞게 사용할 경우
+  // 사용법 1  
+  // 하나의 객체를 선언 상황에 맞게 사용할 경우  
   Consumer consumer;
-  consumer = new VipConsumer(); // or new FamilyConsumer()
+  consumer = new VipConsumer(); // or new FamilyConsumer()  
 
-  // Consumer가 어떤 객체인지 구별하기 위한 방법(enum 사용)
-  // Object 비교를 통해서도 가능하다.
+  // Consumer가 어떤 객체인지 구별하기 위한 방법(enum 사용)  
+  // Object 비교를 통해서도 가능하다.  
   if (consumer.CType() == ConsumerType.vip) {
-    consumer.price(); // O
-    print(consumer.vipCount); // X (접근 불가)
-    VipConsumer vipConsumer = (VipConsumer)consumer; // 객체를 명시적으로 지정
+    consumer.price(); // O  
+    print(consumer.vipCount); // X (접근 불가)  
+    VipConsumer vipConsumer = (VipConsumer)consumer; // 객체를 명시적으로 지정  
     print(consumer.vipCount);
   }
   else if (consumer.CType() == ConsumerType.family) {
 
   }
-  // 사용법 2
-  // 개별 객체를 미리 선언해서 사용할 경우
+  // 사용법 2  
+  // 개별 객체를 미리 선언해서 사용할 경우  
   VipConsumer vipConsumer = new VipConsumer();
   FamilyConsumer familyConsumer = new FamilyConsumer();
-}
+}  
 ```  
 ## 4. Enum 이란?
 - 예전의 Enum은 상수를 문자화해서 사용하는 용도였으나, 오늘날 Enum을 지원하는 대부분의 언어에서는 Enum이 많이 발전하여 생성자 및 함수도 가질 수 있다. 꼭 자신이 Class인것처럼....
