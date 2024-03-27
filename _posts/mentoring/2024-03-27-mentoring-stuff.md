@@ -26,7 +26,7 @@ toc_sticky: true
 
 ## 3. 상속 개념(Inheritance)
 - 모든 언어(Java, C#, JS, Dart등)에서 제공하는 개념으로 항상 프로그래밍을 할 때 고려  
-- Abstract, Interface는 왜 중요하며 차이점은 몰까?
+- Abstract, Interface는 왜 중요하며 차이점은 몰까?  
 ```java
 enum ConsumerType {
   vip,
@@ -83,7 +83,7 @@ public static void main(String[] args) {
   VipConsumer vipConsumer = new VipConsumer();
   FamilyConsumer familyConsumer = new FamilyConsumer();
 }
-```
+```  
 ## 4. Enum 이란?
 - 예전의 Enum은 상수를 문자화해서 사용하는 용도였으나, 오늘날 Enum을 지원하는 대부분의 언어에서는 Enum이 많이 발전하여 생성자 및 함수도 가질 수 있다. 꼭 자신이 Class인것처럼....
 - [Java Enum 참고 사이트](https://www.baeldung.com/a-guide-to-java-enums)
