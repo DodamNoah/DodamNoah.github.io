@@ -64,8 +64,7 @@ public class MainActivity extends FlutterActivity {
             .setMethodCallHandler(
             (call, result) -> {
                 if (call.method.equals("hideUi")) hideSystemUI();
-            }
-            );
+            });
     }
 
   @Override
